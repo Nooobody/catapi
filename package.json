@@ -1,0 +1,29 @@
+{
+  "name": "catapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "ts-node src/index.ts",
+    "start": "nodemon",
+    "build": "tsc"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.7.0",
+    "koa-mount": "^4.0.0",
+    "koa-route": "^3.2.0",
+    "mongodb": "^3.2.3"
+  },
+  "devDependencies": {
+    "@types/graphql": "^14.2.0",
+    "@types/koa": "^2.0.48",
+    "@types/mongodb": "^3.1.23",
+    "@types/node": "^11.13.5",
+    "nodemon": "^1.18.11",
+    "ts-node": "^8.1.0",
+    "typescript": "^3.4.4"
+  }
+}
