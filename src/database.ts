@@ -1,5 +1,5 @@
 
-import { MongoClient } from 'mongodb';
+import { MongoClient, ObjectId } from 'mongodb';
 const url = "mongodb://localhost:27017/catapi";
 
 interface Breed {
@@ -15,12 +15,13 @@ function escapeRegex(query : string) : string {
   return query.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&")
 }
 
-async function getDB() : Promise<Db> {
+async function getDB() : Promise<any> {
   try {
-    const client = await MongoClient.connect(url);
+    const client:MongoClient = await MongoClient.connect(url, { useNewUrlParser: true });
     return client.db('catapi');
   }
   catch(e) {
+    console.log("Mongodb failed to connect!")
     // Failed to connect!
     return false;
   }
@@ -38,14 +39,14 @@ export default async function() {
 
     return {
       async getAllBreeds() : Promise<Breed[]> {
-        return await db.collection('breed').find();
+        return await db.collection('breed').find().toArray();
       },
       async getBreedById(id : string) : Promise<Breed> {
-        return await db.collection('breed').findOne({id});
+        return await db.collection('breed').findOne({_id: new ObjectId(id)});
       },
       async searchBreedByName(name : string) : Promise<Breed> {
         let regex = new RegExp(escapeRegex(name), 'gi');
-        return await db.collection('breed').find({name: regex});
+        return await db.collection('breed').find({name: regex}).toArray();
       }
     }
   }
