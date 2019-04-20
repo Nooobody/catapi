@@ -1,6 +1,6 @@
 
 import { MongoClient, ObjectId } from 'mongodb';
-const url = "mongodb://localhost:27017/catapi";
+import { MONGODB_URL } from './config';
 
 interface Breed {
   id: number;
@@ -17,7 +17,7 @@ function escapeRegex(query : string) : string {
 
 async function getDB() : Promise<any> {
   try {
-    const client:MongoClient = await MongoClient.connect(url, { useNewUrlParser: true });
+    const client:MongoClient = await MongoClient.connect(MONGODB_URL, { useNewUrlParser: true });
     return client.db('catapi');
   }
   catch(e) {
