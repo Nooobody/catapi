@@ -1,6 +1,6 @@
 
 import { MongoClient, ObjectId } from 'mongodb';
-import { MONGODB_URL } from './config';
+import { MONGODB_URL, MONGODB_DATABASE } from './config';
 
 interface Breed {
   id: number;
@@ -18,7 +18,7 @@ function escapeRegex(query : string) : string {
 async function getDB() : Promise<any> {
   try {
     const client:MongoClient = await MongoClient.connect(MONGODB_URL, { useNewUrlParser: true });
-    return client.db('catapi');
+    return client.db(MONGODB_DATABASE);
   }
   catch(e) {
     console.log("Mongodb failed to connect!")
